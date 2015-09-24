@@ -57,7 +57,7 @@
   }
 
   function setPositionType(element) {
-    element.style.position = 'absolute';
+    element.style.position = 'fixed';
   }
 
   function setDraggableListeners(element) {
@@ -74,7 +74,6 @@
   function startDragging(event, element) {
     currentElement && sendToBack(currentElement);
     currentElement = bringToFront(element);
-
 
     var initialPosition = getInitialPosition(currentElement);
     currentElement.style.left = inPixels(initialPosition.left);
@@ -97,7 +96,9 @@
   function triggerEvent(type, args) {
     var result = true;
     var listeners = currentElement.draggableListeners[type];
-    for (var i = listeners.length - 1; i >= 0; i--) {
+    var i = listeners.length;
+
+    while (i--) {
       if (listeners[i](args) === false) result = false;
     };
     return result;
